@@ -72,6 +72,7 @@ ENV NODE_ENV=production \
   PAPERCLIP_DEPLOYMENT_EXPOSURE=private \
   OPENCODE_ALLOW_ALL_MODELS=true
 
+USER node
 EXPOSE 3100
 
-CMD ["su", "node", "-s", "/bin/sh", "-c", "node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js"]
+CMD ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]

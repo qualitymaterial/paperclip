@@ -6,5 +6,7 @@ node_modules
 **/node_modules
 coverage
 data
+lume-data
+doc
 tmp
 *.log

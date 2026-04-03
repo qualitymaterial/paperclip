@@ -58,6 +58,12 @@ RUN npm install --global --omit=dev @anthropic-ai/claude-code@latest @openai/cod
   && mkdir -p /paperclip \
   && chown node:node /paperclip
 
+# Wrapper script: uses gosu to run claude as node user (UID 1000)
+# gosu cleanly exec's as the target user without su/sudo traces,
+# so Claude Code won't detect root privileges.
+RUN printf '#!/bin/sh\nexec gosu node /usr/local/bin/claude "$@"\n' \
+  > /usr/local/bin/claude-node && chmod +x /usr/local/bin/claude-node
+
 ENV NODE_ENV=production \
   HOME=/paperclip \
   HOST=0.0.0.0 \
@@ -72,7 +78,6 @@ ENV NODE_ENV=production \
   PAPERCLIP_DEPLOYMENT_EXPOSURE=private \
   OPENCODE_ALLOW_ALL_MODELS=true
 
-USER node
 EXPOSE 3100
 
-CMD ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
+CMD ["gosu", "node", "node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]

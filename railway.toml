@@ -1,0 +1,7 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js"
+healthcheckPath = "/api/health"

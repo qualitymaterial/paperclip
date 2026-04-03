@@ -75,6 +75,7 @@ ENV NODE_ENV=production \
   PAPERCLIP_DEPLOYMENT_EXPOSURE=private \
   OPENCODE_ALLOW_ALL_MODELS=true
 
+USER node
 EXPOSE 3100
 
 ENTRYPOINT ["docker-entrypoint.sh"]

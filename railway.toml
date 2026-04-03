@@ -3,5 +3,5 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "su node -s /bin/sh -c 'node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js'"
+startCommand = "su node -s /bin/sh -c 'node --import /app/server/node_modules/tsx/dist/loader.mjs /app/server/dist/index.js'"
 healthcheckPath = "/api/health"

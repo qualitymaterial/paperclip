@@ -58,9 +58,6 @@ RUN npm install --global --omit=dev @anthropic-ai/claude-code@latest @openai/cod
   && mkdir -p /paperclip \
   && chown node:node /paperclip
 
-COPY scripts/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 ENV NODE_ENV=production \
   HOME=/paperclip \
   HOST=0.0.0.0 \
@@ -77,5 +74,4 @@ ENV NODE_ENV=production \
 
 EXPOSE 3100
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
+CMD ["su", "node", "-s", "/bin/sh", "-c", "node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js"]

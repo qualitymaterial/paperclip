@@ -56,9 +56,9 @@ WORKDIR /app
 COPY --chown=node:node --from=build /app /app
 RUN npm install --global --omit=dev @anthropic-ai/claude-code@latest @openai/codex@latest opencode-ai \
   && mkdir -p /paperclip \
-  && chown node:node /paperclip \
-  && printf '#!/bin/sh\nexec gosu node /usr/local/bin/claude "$@"\n' > /usr/local/bin/claude-node \
-  && chmod +x /usr/local/bin/claude-node
+  && chown node:node /paperclip
+COPY docker/claude-node /usr/local/bin/claude-node
+RUN chmod +x /usr/local/bin/claude-node
 
 ENV NODE_ENV=production \
   HOME=/paperclip \

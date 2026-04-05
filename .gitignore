@@ -7,6 +7,8 @@ drizzle/meta/
 coverage/
 .DS_Store
 data/
+lume-data/
+doc/plans/
 .paperclip/
 .pnpm-store/
 tmp-*
